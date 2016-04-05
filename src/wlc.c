@@ -256,8 +256,10 @@ wlc_run(void)
 
    wlc_set_active(true);
 
-   if (wlc_compositor_is_good(&wlc.compositor))
+   if (wlc_compositor_is_good(&wlc.compositor) || wlc.compositor.backend.type == WLC_BACKEND_HEADLESS)
       wl_display_run(wlc.display);
+   else
+     wlc_log(WLC_LOG_INFO, "Compositor isn't good. Cleaning up");
 
    wlc_cleanup();
 }

@@ -28,6 +28,7 @@ enum wlc_backend_type {
    WLC_BACKEND_NONE,
    WLC_BACKEND_DRM,
    WLC_BACKEND_X11,
+   WLC_BACKEND_HEADLESS
 };
 
 /** mask in wlc_event_loop_add_fd(); */

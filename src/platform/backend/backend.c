@@ -5,6 +5,7 @@
 #include "backend.h"
 #include "x11.h"
 #include "drm.h"
+#include "headless.h"
 
 bool
 wlc_backend_surface(struct wlc_backend_surface *surface, void (*destructor)(struct wlc_backend_surface*), size_t internal_size)
@@ -64,6 +65,15 @@ wlc_backend(struct wlc_backend *backend)
    assert(backend);
    memset(backend, 0, sizeof(struct wlc_backend));
 
+   char* headless = getenv("WLC_HEADLESS");
+   if(headless != NULL && strncmp(headless, "0", 1) != 0) {
+     wlc_headless(backend);     /* headless always succeeds */
+     backend->type = WLC_BACKEND_HEADLESS;
+     return true;
+   }
+
+   /* don't allow headless to be automatically chosen -- it is only
+    * for testing */
    bool (*init[])(struct wlc_backend*) = {
       wlc_x11,
       wlc_drm,

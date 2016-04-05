@@ -46,6 +46,7 @@ set(sources
    platform/backend/backend.c
    platform/backend/drm.c
    platform/backend/x11.c
+   platform/backend/headless.c
    platform/context/context.c
    platform/context/egl.c
    platform/render/gles2.c
